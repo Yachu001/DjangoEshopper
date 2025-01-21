@@ -93,7 +93,7 @@ DATABASES = {
         'USER':'postgres',
         'PASSWORD':os.environ['DB_PASSWORD_MINE'],
         'HOST':'viaduct.proxy.rlwy.net',
-        'PORT':'46346',
+        'PORT':'5432',
     }
 }
 
