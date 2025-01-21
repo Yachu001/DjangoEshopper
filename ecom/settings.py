@@ -92,7 +92,7 @@ DATABASES = {
         'NAME': 'railway',
         'USER': 'postgres',
         'PASSWORD': os.environ['DB_PASSWORD_MINE'],
-        'HOST': 'postgres-ob4r-production.up.railway.app',
+        'HOST': 'postgres-ob4r.railway.internal',
         'PORT': '5432',
     }
 }
