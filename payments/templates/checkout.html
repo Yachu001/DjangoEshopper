@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block content %}
+        <!-- Header-->
+        <header class="bg-dark py-5">
+            <div class="container px-4 px-lg-5 ">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">Checkout</h1>
+                    <p class="lead fw-normal text-white-50 mb-0"><b>Eshopper</b> Checkout your order items</p>
+                </div>
+            </div>
+        </header>
+        <div class="row d-flex justify-content-center">
+                <div class="col-sm-5 align-items-center p-4">
+                    <h2 class="text-center "><u>Checkout Order</u></h2>
+                    <div class="card ">
+                        <div class="card-header">
+                          <b>Order Details</b>
+                        </div>
+                        <div class="card-body">
+                          {% for i in cart_products %}
+                          <h5 class="card-title">{{ i.name }}</h5>
+                          {% if i.on_sale %}
+                            <p class="h6">${{ i.sale_price}}</p>
+                          {% else %}
+                            <p class="h6">${{ i.price}}</p>
+                          {% endif %}
+                          {% for key,value in quantities.items %}
+                            {% if key == i.id|slugify %}
+                              <small>
+                                <p class="">Qty:{{ value }}</p>
+                              </small>
+                            {% endif %}
+                          {% endfor %}
+                          <br>
+                          {% endfor %}
+                          <h4>Total : ${{ total }}</h4>
+                        </div>
+                        <a href="{% url 'cartsummary' %}" class="btn btn-success mx-5 mb-2" type="submit">Back to cart</a>
+                      </div>
+                    
+                </center>
+                <br>
+                
+                  <form method="POST" action="{% url 'billing_info' %}">
+                    <div class="card">
+                    {% csrf_token %}
+                    <div class="card-header">
+                      <b>Shipping Address:</b>
+                    </div>
+                    <div class="card-body justify-content-center">
+                      {{ ship_form.as_p }}
+                      
+                    </div>
+                    <button class="btn btn-success mx-5 mb-2" type="submit">Prceed To Pay</button>
+                     
+                  </div>
+                </form>
+                
+                
+            
+       
+        </div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+        <!-- Header-->
+        
+        <div class="row d-flex justify-content-center">
+                <div class=" p-4">
+                    <h2 class="text-center "><u>Shipped Orders</u></h2>
+              
+                    <table class="table table-bordered">
+                        <thead class=" table-dark">
+                          <tr>
+                            <th scope="col">Order ID</th>
+                            <th scope="col">User Email</th>
+                            <th scope="col">Amount Paid</th>
+                            <th scope="col">Shipped Date</th>
+                            <th scope="col">Order Status Update</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% for order in orders %}
+                          <tr>
+                            <td><a href="{% url 'orders' order.id %}">{{ order.id }}</a></td>
+                            <td>{{ order.email }}</td>
+                            <td>{{ order.amount_paid }}</td>
+                            <td>{{ order.date_shipped.date }}</td>
+                            <td>
+                              <form action="" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="shipping_status" value="false">
+                                <input type="hidden" name="num" value="{{ order.id }}">
+                                <button type="submit" class="btn btn-danger">Mark Unshipped</button>
+                              </form>
+                            </td>
+                          </tr>
+                          {% endfor %}
+                        </tbody>
+                      </table>
+        
+        </div>
+{% endblock %}

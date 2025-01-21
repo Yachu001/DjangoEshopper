@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block content %}
+<header class="bg-dark py-5">
+  <div class="container px-4 px-lg-5 ">
+      <div class="text-center text-white">
+          <h1 class="display-4 fw-bolder">Shop in style</h1>
+          <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
+      </div>
+  </div>
+</header>
+<div class="card m-3 d-flex ">
+    <center>
+      <div class="row p-4">
+        <div class="col-sm-6">
+          <div class="align-center">
+            <img src="{{ product.image.url }}" style="height: 20rem; width: 35rem;" class="card-img-top py-2" alt="...">
+         </div>
+        </div>
+        <div class="col-sm-5">
+          <div class="card-body">
+            
+            <h5 class="card-title">{{ product.name }}</h5>
+            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            <p class="card-text"><small class="text-body-secondary">Last updated 3 mins ago</small></p>
+            {% if product.on_sale %}
+            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
+            <strike>${{ product.price }}</strike>
+            <p>Price ${{ product.sale_price }}</p>
+            {% else %}
+            <p>Price ${{ product.price }}</p>
+            {% endif %}
+            <div class="row  py-2">
+              <div class="col">Quantity :</div>
+              <div class="col">
+                <select class="form-select" id="qty-cart" aria-label="Default select example">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+            </div>
+            <a class="btn btn-primary" href="{% url 'home' %}">Home</a>
+            <button type="button" class="btn btn-primary" id="add-cart" value="{{ product.id }}">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    
+    
+    </center>
+</div>
+
+<script>
+  $(document).on('click','#add-cart',function(e){
+    e.preventDefault();
+    $.ajax({
+      type :'POST',
+      url :"{% url 'cartadd' %}",
+      data :{
+        product_id: $('#add-cart').val(),
+        product_qty:$('#qty-cart option:selected').text(),
+        csrfmiddlewaretoken:'{{ csrf_token }}',
+        action: 'post',
+      },
+      success: function(json){
+        //console.log(json)
+        document.getElementById("cart_quantity").
+        textContent =json.qty
+        location.reload();
+      },
+      error: function(xhr,errmsg,err){
+
+      }
+    });
+  })
+</script>
+{% endblock %}

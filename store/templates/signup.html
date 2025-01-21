@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+        <!-- Header-->
+        <header class="bg-dark py-5">
+            <div class="container px-4 px-lg-5 my-1">
+                <div class="text-center text-white">
+                    <h6 class="display-4 fw-bolder">Register as new user</h6>
+                    <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
+                </div>
+            </div>
+        </header>
+        <!-- Section-->
+        <div class="container">
+            <div class="row ">
+               <center>
+               <div class="col-sm-5 p-4  ">
+                   <form method="POST" action="{% url 'signup' %}">
+                       {% csrf_token %}
+                       {{ form.as_p }}
+                       <br><br>
+                       <button class="btn btn-primary" type="submit">Signup</button>
+                   </form>
+                   
+               </div>
+               </center>
+           </div>
+      </div>
+       
+     
+{% endblock %}
