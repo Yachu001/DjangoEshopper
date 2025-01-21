@@ -29,8 +29,8 @@ SECRET_KEY = 'django-insecure-cd5w+z^h)f%(42p&=i@ivh72u*8jsq^o1p00g^q6@1l9o+bq+)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-CSRF_TRUSTED_ORIGIN = []
+ALLOWED_HOSTS = ['djangoeshopper-production.up.railway.app', 'https://djangoeshopper-production.up.railway.app']
+CSRF_TRUSTED_ORIGIN = ['https://djangoeshopper-production.up.railway.app']
 
 
 # Application definition
